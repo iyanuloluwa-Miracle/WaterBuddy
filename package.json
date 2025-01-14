@@ -1,6 +1,6 @@
 {
-  "name": "water-reminder",
-  "displayName": "water-reminder",
+  "name": "WaterBuddy",
+  "displayName": "WaterBuddy",
   "description": "Friendly reminders to stay hydrated while coding",
   "version": "0.0.1",
   "engines": {
@@ -14,7 +14,7 @@
   "contributes": {
    "commands": [
       {
-        "command": "water-reminder.toggleReminder",
+        "command": "WaterBuddy.toggleReminder",
         "title": "Toggle Water Reminder"
       }
     ],

@@ -53,12 +53,16 @@ async function showReminderNotification() {
     const action = await vscode.window.showInformationMessage(
         '💧 Time for a water break! Stay hydrated for better productivity.',
         'Dismiss',
-        'Snooze 15min'
+        'Snooze 10min',
+        'Mark as Done'
+
     );
 
-    if (action === 'Snooze 15min') {
+    if (action === 'Snooze 10min') {
         stopReminder();
-        setTimeout(startReminder, 15 * 60 * 1000);
+        setTimeout(startReminder, 10 * 60 * 1000); // Snooze for 10 minutes
+    } else if (action === 'Mark as Done') {
+        vscode.window.showInformationMessage('🎉 Great job staying active!');
     }
 }
 
