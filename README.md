@@ -1,16 +1,16 @@
-# water-reminder README
+# WaterBuddy
 
-This is the README for your extension "water-reminder". After writing up a brief description, we recommend including the following sections.
+Stay hydrated while coding! This VS Code extension provides gentle reminders to drink water at regular intervals, helping you maintain healthy habits during long coding sessions.
 
 ## Features
 
-Describe specific features of your extension including screenshots of your extension in action. Image paths are relative to this README file.
+💧 Clean, unobtrusive water break reminders
+⏰ Customizable reminder intervals
+🔔 Status bar indicator for quick access
+💤 Snooze functionality for busy moments
+🎯 Simple toggle on/off mechanism
 
-For example if there is an image subfolder under your extension project workspace:
-
-\!\[feature X\]\(images/feature-x.png\)
-
-> Tip: Many popular extensions utilize animations. This is an excellent way to show off your extension! We recommend short, focused animations that are easy to follow.
+The extension adds a water droplet icon to your status bar that shows the current reminder status. When it's time for a water break, you'll receive a friendly notification with options to dismiss or snooze the reminder.
 
 ## Requirements
 
