@@ -11,11 +11,11 @@ export function activate(context: vscode.ExtensionContext) {
         100
     );
     statusBarItem.text = "$(drop) Stay Hydrated!";
-    statusBarItem.command = 'water-reminder.toggleReminder';
+    statusBarItem.command = 'WaterBuddy.toggleReminder';
     context.subscriptions.push(statusBarItem);
 
     // Register command to toggle reminder
-    let toggleCommand = vscode.commands.registerCommand('water-reminder.toggleReminder', () => {
+    let toggleCommand = vscode.commands.registerCommand('WaterBuddy.toggleReminder', () => {
         if (reminderInterval) {
             stopReminder();
         } else {
@@ -30,14 +30,14 @@ export function activate(context: vscode.ExtensionContext) {
 }
 
 function startReminder() {
-    const config = vscode.workspace.getConfiguration('waterReminder');
+    const config = vscode.workspace.getConfiguration('waterBuddy');
     const intervalInMinutes = config.get<number>('intervalInMinutes') || 30;
     
     reminderInterval = setInterval(() => {
         showReminderNotification();
     }, intervalInMinutes * 60 * 1000);
     
-    statusBarItem.text = "$(drop) Water Reminder: On";
+    statusBarItem.text = "$(drop) Water Buddy: On";
     statusBarItem.show();
 }
 

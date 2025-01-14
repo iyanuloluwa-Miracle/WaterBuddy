@@ -1,4 +1,4 @@
-# WaterBuddy
+# WaterBuddy 💧 
 
 Stay hydrated while coding! This VS Code extension provides gentle reminders to drink water at regular intervals, helping you maintain healthy habits during long coding sessions.
 

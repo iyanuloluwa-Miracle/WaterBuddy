@@ -9,7 +9,7 @@
   "categories": [
     "Other"
   ],
-  "icon": "images/waterbuddy.png", 
+  "icon": "./images/waterbuddy.png", 
   "activationEvents": [],
   "main": "./out/extension.js",
   "contributes": {
@@ -20,9 +20,9 @@
       }
     ],
     "configuration": {
-      "title": "Water Reminder",
+      "title": "WaterBuddy",
       "properties": {
-        "waterReminder.intervalInMinutes": {
+        "waterBuddy.intervalInMinutes": {
           "type": "number",
           "default": 1,
           "description": "Reminder interval in minutes"
