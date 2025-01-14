@@ -9,6 +9,7 @@
   "categories": [
     "Other"
   ],
+  "icon": "images/waterbuddy.png", 
   "activationEvents": [],
   "main": "./out/extension.js",
   "contributes": {
