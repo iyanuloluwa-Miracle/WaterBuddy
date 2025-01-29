@@ -11,14 +11,15 @@
   ],
   "icon": "./images/waterbuddy.png",
   "activationEvents": [
-    "onCommand:waterBuddy.toggleReminder"
+    "onCommand:waterBuddy.toggleReminder",
+    "onStartupFinished"
   ],
   "main": "./out/extension.js",
   "contributes": {
     "commands": [
       {
         "command": "waterBuddy.toggleReminder",
-        "title": "Toggle Water Reminder"
+        "title": "Toggle WaterBuddy Reminder"
       }
     ],
     "configuration": {
