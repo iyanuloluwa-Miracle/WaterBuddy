@@ -9,7 +9,7 @@ export function activate(context: vscode.ExtensionContext) {
         vscode.StatusBarAlignment.Right,
         100
     );
-    statusBarItem.text = "$(drop) Water Reminder: Off";
+    statusBarItem.text = "$(drop) WaterBuddy: Off";
     statusBarItem.command = 'waterBuddy.toggleReminder';
     statusBarItem.tooltip = "Click to toggle water reminders";
     context.subscriptions.push(statusBarItem);
