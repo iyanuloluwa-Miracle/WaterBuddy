@@ -27,7 +27,7 @@
       "properties": {
         "waterBuddy.intervalInMinutes": {
           "type": "number",
-          "default": 1,
+          "default": 30,
           "description": "Interval for water reminders in minutes (minimum 1)."
         }
       }
