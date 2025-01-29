@@ -14,7 +14,6 @@
   "categories": [
     "Other"
   ],
-  "icon": "./images/waterbuddy.png",
   "activationEvents": [
     "onCommand:waterBuddy.toggleReminder",
     "onStartupFinished"
