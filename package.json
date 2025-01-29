@@ -1,7 +1,7 @@
 {
   "name": "WaterBuddy",
   "displayName": "WaterBuddy",
-  "description": "Friendly reminders to stay hydrated while coding",
+  "description": "Friendly reminders to stay hydrated while coding.",
   "version": "0.0.1",
   "engines": {
     "vscode": "^1.96.0"
@@ -9,23 +9,25 @@
   "categories": [
     "Other"
   ],
-  "icon": "./images/waterbuddy.png", 
-  "activationEvents": [],
+  "icon": "./images/waterbuddy.png",
+  "activationEvents": [
+    "onCommand:waterBuddy.toggleReminder"
+  ],
   "main": "./out/extension.js",
   "contributes": {
-   "commands": [
+    "commands": [
       {
-        "command": "WaterBuddy.toggleReminder",
+        "command": "waterBuddy.toggleReminder",
         "title": "Toggle Water Reminder"
       }
     ],
     "configuration": {
-      "title": "WaterBuddy",
+      "title": "WaterBuddy Settings",
       "properties": {
         "waterBuddy.intervalInMinutes": {
           "type": "number",
           "default": 1,
-          "description": "Reminder interval in minutes"
+          "description": "Interval for water reminders in minutes (minimum 1)."
         }
       }
     }
