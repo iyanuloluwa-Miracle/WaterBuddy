@@ -93,5 +93,3 @@ This extension is licensed under the [MIT License](LICENSE).
 **Enjoy coding and stay hydrated! 💧**  
 
 ---
-
-This version emphasizes that **WaterBuddy version 1** is the initial release and sets expectations for future updates. It’s concise, professional, and user-friendly, while maintaining a welcoming tone. Let me know if you’d like further adjustments!
