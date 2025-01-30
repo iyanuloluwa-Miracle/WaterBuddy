@@ -1,14 +1,14 @@
 {
   "name": "WaterBuddy",
   "displayName": "WaterBuddy",
-  "icon": "src/images/waterbuddy.png",  
+  "icon": "src/images/waterbuddy.png",
   "publisher": "DinaIyanuloluwa",
   "description": "Friendly reminders to stay hydrated while coding.",
   "repository": {
     "type": "git",
     "url": "https://github.com/iyanuloluwa-Miracle/WaterBuddy"
   },
-  "version": "0.0.2",
+  "version": "0.1.0",
   "engines": {
     "vscode": "^1.96.0"
   },
