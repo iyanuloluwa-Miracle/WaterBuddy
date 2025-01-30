@@ -1,6 +1,7 @@
 {
   "name": "WaterBuddy",
   "displayName": "WaterBuddy",
+  "icon": "src/images/waterbuddy.svg",  
   "publisher": "DinaIyanuloluwa",
   "description": "Friendly reminders to stay hydrated while coding.",
   "repository": {
