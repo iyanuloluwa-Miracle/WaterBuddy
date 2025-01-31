@@ -1,22 +1,22 @@
 {
-  "name": "WaterBuddy",
+  "name": "waterbuddy",
   "displayName": "WaterBuddy",
   "icon": "./images/waterbuddy.png",
   "publisher": "DinaIyanuloluwa",
-  "description": "Friendly reminders to stay hydrated while coding.",
+  "description": "Friendly reminders to stay hydrated while coding with improved reliability and user experience.",
   "repository": {
     "type": "git",
     "url": "https://github.com/iyanuloluwa-Miracle/WaterBuddy"
   },
-  "version": "0.4.0",
+  "version": "0.5.0",
   "engines": {
     "vscode": "^1.96.0"
   },
   "categories": [
-    "Other"
+    "Other",
+    "Snippets"
   ],
   "activationEvents": [
-    "onCommand:waterBuddy.toggleReminder",
     "onStartupFinished"
   ],
   "main": "./out/extension.js",
@@ -24,16 +24,19 @@
     "commands": [
       {
         "command": "waterBuddy.toggleReminder",
-        "title": "Toggle WaterBuddy Reminder"
+        "title": "Toggle WaterBuddy Reminder",
+        "category": "WaterBuddy"
       }
     ],
     "configuration": {
-      "title": "WaterBuddy Settings",
+      "title": "WaterBuddy",
       "properties": {
         "waterBuddy.intervalInMinutes": {
           "type": "number",
+          "minimum": 1,
+          "maximum": 240,
           "default": 30,
-          "description": "Interval for water reminders in minutes (minimum 1)."
+          "description": "Interval for water reminders in minutes (between 1 and 240 minutes)."
         }
       }
     }
@@ -43,7 +46,7 @@
     "compile": "tsc -p ./",
     "watch": "tsc -watch -p ./",
     "pretest": "npm run compile && npm run lint",
-    "lint": "eslint src",
+    "lint": "eslint src --ext ts",
     "test": "vscode-test"
   },
   "devDependencies": {
