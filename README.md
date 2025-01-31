@@ -1,3 +1,4 @@
+<img src="./images/waterbuddy.png" alt="Water Buddy" width="128" height="128">
 
 # WaterBuddy version 1💧  
 
@@ -18,6 +19,11 @@ This is **version 1** of the extension, and we’re excited to share that more u
 The extension adds a water droplet icon (💧) to your status bar, showing the current reminder status. When it’s time for a water break, you’ll receive a friendly notification with options to dismiss or snooze the reminder.
 
 ---
+
+## Screenshot
+<img src="./images/waterbuddies 1.svg" alt="Waterbuddy">
+
+
 
 ## Requirements  
 
