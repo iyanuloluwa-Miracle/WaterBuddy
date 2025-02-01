@@ -21,7 +21,7 @@ The extension adds a water droplet icon (💧) to your status bar, showing the c
 ---
 
 ## Screenshot
-<img src="./images/waterbuddies.svg" alt="Waterbuddy">
+<img src="./images/waterbuddies.png" alt="Waterbuddy">
 
 
 
