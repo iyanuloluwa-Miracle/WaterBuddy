@@ -75,16 +75,17 @@ export class ReminderService {
         try {
             if (this.state.snoozeTimeout) {
                 clearTimeout(this.state.snoozeTimeout);
+                this.state.snoozeTimeout = undefined;
             }
-
+    
             await this.stop();
             this.statusBarService.setSnoozing();
-
+    
             this.state.snoozeTimeout = setTimeout(async () => {
                 this.state.snoozeTimeout = undefined;
                 await this.start();
             }, CONSTANTS.SNOOZE_TIME * 60 * 1000);
-
+    
             await vscode.window.showInformationMessage(CONSTANTS.MESSAGES.SNOOZE);
         } catch (error) {
             console.error('Failed to snooze:', error);
@@ -100,7 +101,7 @@ export class ReminderService {
                 'Snooze 15min',
                 'Mark as Done'
             ) as NotificationAction;
-
+    
             if (action === 'Snooze 15min') {
                 await this.handleSnooze();
             } else if (action === 'Mark as Done') {
