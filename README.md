@@ -1,101 +1,107 @@
-<img src="./images/waterbuddy.png" alt="Water Buddy" width="128" height="128">
 
-# WaterBuddy version 1💧  
+<img src="./images/waterbuddy.png" alt="WaterBuddy Logo" width="128" height="128">
 
-Stay hydrated while coding! **WaterBuddy** is a simple and intuitive VS Code extension that provides gentle reminders to drink water at regular intervals, helping you maintain healthy habits during long coding sessions.
+# WaterBuddy 💧  
 
-This is **version 1** of the extension, and we’re excited to share that more updates with new features are on the way! Stay tuned for improvements and additional functionality in future releases.
+**Stay Hydrated, Stay Productive!**  
+WaterBuddy is a lightweight and intuitive Visual Studio Code extension designed to help developers maintain healthy hydration habits during long coding sessions. With gentle, customizable reminders, WaterBuddy ensures you never forget to take a water break, boosting your productivity and well-being.
 
 ---
 
 ## Features  
 
-- 💧 Clean, unobtrusive water break reminders  
-- ⏰ Customizable reminder intervals (default: 30 minutes)  
-- 🔔 Status bar indicator for quick access  
-- 💤 Snooze functionality for busy moments  
-- 🎯 Simple toggle on/off mechanism  
+- **💧 Hydration Reminders**: Receive friendly, unobtrusive notifications to drink water at regular intervals.  
+- **⏰ Customizable Intervals**: Set your preferred reminder frequency (default: 30 minutes).  
+- **🔔 Status Bar Integration**: A water droplet icon in the status bar indicates the reminder status.  
+- **💤 Snooze Functionality**: Temporarily pause reminders during intense coding sessions.  
+- **🎯 Easy Toggle**: Quickly enable or disable reminders with a single click.  
 
-The extension adds a water droplet icon (💧) to your status bar, showing the current reminder status. When it’s time for a water break, you’ll receive a friendly notification with options to dismiss or snooze the reminder.
+When it’s time for a water break, WaterBuddy displays a notification with options to dismiss, snooze, or mark the reminder as done. The status bar icon updates dynamically to reflect the current state (On, Off, or Snoozing).
 
 ---
 
-## Screenshot
-<img src="./images/waterbuddies.png" alt="Waterbuddy">
+## Screenshots  
 
+<img src="./images/waterbuddies.png" alt="WaterBuddy Screenshot">  
 
+---
 
 ## Requirements  
 
-- Visual Studio Code version 1.80.0 or higher  
-- No additional dependencies required  
+- **Visual Studio Code**: Version 1.80.0 or higher.  
+- **No Additional Dependencies**: Lightweight and ready to use out of the box.  
 
 ---
 
 ## Extension Settings  
 
-This extension contributes the following settings:  
+WaterBuddy contributes the following configuration option to VS Code:  
 
-- `waterReminder.intervalInMinutes`: Set the interval between water break reminders (default: 30 minutes)  
+- **`waterBuddy.intervalInMinutes`**:  
+  - **Type**: `number`  
+  - **Default**: `30`  
+  - **Range**: `1` to `240` minutes  
+  - **Description**: Set the interval between hydration reminders.  
 
 ---
 
 ## How to Use  
 
-1. The water reminder automatically starts when you open VS Code.  
-2. Click the water droplet icon (💧) in the status bar to toggle reminders on/off.  
-3. When you receive a reminder, you can:  
-   - Click **"Dismiss"** to close the notification.  
-   - Click **"Snooze 15min"** to pause reminders for 15 minutes.  
-   - Click **"Mark as done"** to acknowledge the reminder.  
+1. **Automatic Start**: WaterBuddy automatically activates when you launch VS Code.  
+2. **Status Bar Controls**:  
+   - Toggle reminders on or off.  
+3. **Notification Actions**:  
+   - **Dismiss**: Close the reminder notification.  
+   - **Snooze 15min**: Pause reminders for 15 minutes.  
+   - **Mark as Done**: Acknowledge the reminder and continue working.  
 
 ---
 
 ## Known Issues  
 
-None at this time. If you encounter any issues, please report them at our [GitHub repository](https://github.com/yourusername/water-reminder/issues).  
+No known issues at this time. If you encounter any problems, please [report them here](https://github.com/yourusername/water-reminder/issues).  
 
 ---
 
 ## Release Notes  
 
-### 1.0.0  
+### **Version 1.1.2**  
+- **Improved Reliability**: Enhanced error handling and state management.  
+- **Better User Experience**: Smoother transitions between reminder states.  
+- **Configuration Validation**: Ensures interval settings are within valid ranges.  
 
-**Initial release of WaterBuddy version 1:**  
-- Basic water break reminder functionality  
-- Customizable intervals  
-- Status bar controls  
-- Snooze feature  
-
-**Note:** This is the first version of WaterBuddy. More updates with new features and improvements are coming soon!  
+### **Version 1.0.0**  
+- **Initial Release**: Basic hydration reminder functionality with customizable intervals, status bar controls, and snooze support.  
 
 ---
 
 ## Privacy  
 
-This extension does not collect or transmit any user data. All settings are stored locally in your VS Code configuration.  
+WaterBuddy respects your privacy. It does not collect, store, or transmit any personal data. All settings are stored locally within your VS Code configuration.  
 
 ---
 
 ## Contributing  
 
-Found a bug or have a feature request? We’d love to hear from you! Please open an issue or submit a pull request on our [GitHub repository](https://github.com/yourusername/water-reminder).  
+We welcome contributions! If you have ideas for new features, improvements, or bug fixes, please:  
+1. Open an issue on our [GitHub repository](https://github.com/yourusername/water-reminder/issues).  
+2. Submit a pull request with your proposed changes.  
+
+For more details, check out our [contribution guidelines](https://github.com/yourusername/water-reminder/CONTRIBUTING.md).  
 
 ---
 
 ## License  
 
-This extension is licensed under the [MIT License](LICENSE).  
+WaterBuddy is open-source software licensed under the [MIT License](LICENSE).  
 
 ---
 
-## For More Information  
+## Resources  
 
-- [Visual Studio Code's Markdown Support](http://code.visualstudio.com/docs/languages/markdown)  
+- [Visual Studio Code Markdown Support](https://code.visualstudio.com/docs/languages/markdown)  
 - [Markdown Syntax Reference](https://help.github.com/articles/markdown-basics/)  
 
 ---
 
-**Enjoy coding and stay hydrated! 💧**  
-
----
+**Happy Coding, and Stay Hydrated! 💧**  
