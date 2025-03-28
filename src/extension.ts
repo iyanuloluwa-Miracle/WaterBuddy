@@ -6,6 +6,8 @@ interface WaterBuddyState {
   reminderInterval?: ReturnType<typeof setInterval>;
   snoozeTimeout?: NodeJS.Timeout;
   statusBarItem: vscode.StatusBarItem;
+  lastReminderTime?: number;
+  transitionInProgress: boolean;
 }
 
 const state: WaterBuddyState = {
@@ -14,7 +16,25 @@ const state: WaterBuddyState = {
     vscode.StatusBarAlignment.Right,
     100
   ),
+  transitionInProgress: false
 };
+
+// Configuration validation
+function validateConfiguration(): { intervalInMinutes: number, isValid: boolean } {
+  const config = vscode.workspace.getConfiguration("waterBuddy");
+  let intervalInMinutes = config.get<number>("intervalInMinutes") || 30;
+
+  // Ensure interval is within valid range (1 minute to 24 hours)
+  if (intervalInMinutes < 1 || intervalInMinutes > 1440) {
+    vscode.window.showWarningMessage(
+      `Invalid interval value (${intervalInMinutes}). Using default value of 30 minutes.`
+    );
+    intervalInMinutes = 30;
+    return { intervalInMinutes, isValid: false };
+  }
+
+  return { intervalInMinutes, isValid: true };
+}
 
 export function activate(context: vscode.ExtensionContext) {
   // Initialize status bar item
@@ -28,7 +48,14 @@ export function activate(context: vscode.ExtensionContext) {
   const toggleCommand = vscode.commands.registerCommand(
     "waterBuddy.toggleReminder",
     async () => {
+      if (state.transitionInProgress) {
+        vscode.window.showInformationMessage("Please wait, transition in progress...");
+        return;
+      }
+
       try {
+        state.transitionInProgress = true;
+        
         if (state.isActive) {
           const stopped = await stopReminder();
           if (stopped) {
@@ -37,14 +64,21 @@ export function activate(context: vscode.ExtensionContext) {
             );
           }
         } else {
-          await startReminder();
-          await vscode.window.showInformationMessage(
-            "Water reminder turned on"
-          );
+          const { isValid } = validateConfiguration();
+          if (isValid) {
+            await startReminder();
+            await vscode.window.showInformationMessage(
+              "Water reminder turned on"
+            );
+          }
         }
       } catch (error) {
         console.error("Failed to toggle reminder:", error);
-        vscode.window.showErrorMessage("Failed to toggle water reminder");
+        vscode.window.showErrorMessage(
+          `Failed to toggle water reminder: ${error instanceof Error ? error.message : 'Unknown error'}`
+        );
+      } finally {
+        state.transitionInProgress = false;
       }
     }
   );
@@ -58,8 +92,12 @@ export function activate(context: vscode.ExtensionContext) {
         e.affectsConfiguration("waterBuddy.intervalInMinutes") &&
         state.isActive
       ) {
-        await stopReminder();
-        await startReminder();
+        const { isValid } = validateConfiguration();
+        if (isValid) {
+          await stopReminder();
+          await startReminder();
+          vscode.window.showInformationMessage("Reminder interval updated successfully");
+        }
       }
     })
   );
@@ -70,7 +108,9 @@ export function activate(context: vscode.ExtensionContext) {
     false
   );
   if (wasActive) {
-    startReminder();
+    startReminder().catch(error => {
+      console.error("Failed to auto-start reminder:", error);
+    });
   }
 }
 
@@ -80,15 +120,9 @@ async function startReminder(): Promise<void> {
       await stopReminder(); // Clean up existing reminder if any
     }
 
-    const config = vscode.workspace.getConfiguration("waterBuddy");
-    let intervalInMinutes = config.get<number>("intervalInMinutes") || 30;
-
-    // Validate interval
-    if (intervalInMinutes < 1) {
-      intervalInMinutes = 30;
-      await vscode.window.showWarningMessage(
-        "Invalid interval value. Using default value of 30 minutes."
-      );
+    const { intervalInMinutes, isValid } = validateConfiguration();
+    if (!isValid) {
+      throw new Error("Invalid configuration");
     }
 
     state.reminderInterval = setInterval(
@@ -97,7 +131,9 @@ async function startReminder(): Promise<void> {
     );
 
     state.isActive = true;
+    state.lastReminderTime = Date.now();
     state.statusBarItem.text = "$(drop) WaterBuddy: On";
+    updateStatusBarTooltip();
   } catch (error) {
     console.error("Failed to start reminder:", error);
     throw error;
@@ -117,7 +153,9 @@ async function stopReminder(): Promise<boolean> {
     }
 
     state.isActive = false;
+    state.lastReminderTime = undefined;
     state.statusBarItem.text = "$(drop) WaterBuddy: Off";
+    updateStatusBarTooltip();
     return true;
   } catch (error) {
     console.error("Failed to stop reminder:", error);
@@ -125,24 +163,42 @@ async function stopReminder(): Promise<boolean> {
   }
 }
 
+function updateStatusBarTooltip(): void {
+  const baseTooltip = "Click to toggle water reminders";
+  if (state.isActive && state.lastReminderTime) {
+    const timeSinceLastReminder = Math.floor((Date.now() - state.lastReminderTime) / 1000 / 60);
+    state.statusBarItem.tooltip = `${baseTooltip}\nLast reminder: ${timeSinceLastReminder} minutes ago`;
+  } else {
+    state.statusBarItem.tooltip = baseTooltip;
+  }
+}
+
 async function handleSnooze(): Promise<void> {
-  console.log("Snoozing...");
+  if (state.transitionInProgress) {
+    return;
+  }
 
   try {
+    state.transitionInProgress = true;
+
     if (state.snoozeTimeout) {
       clearTimeout(state.snoozeTimeout);
     }
 
     await stopReminder();
     state.statusBarItem.text = "$(drop) WaterBuddy: Snoozing...";
+    updateStatusBarTooltip();
 
     state.snoozeTimeout = setTimeout(async () => {
-      state.snoozeTimeout = undefined;
-      showReminderNotification();
-      await startReminder();
+      try {
+        state.snoozeTimeout = undefined;
+        await showReminderNotification();
+        await startReminder();
+      } catch (error) {
+        console.error("Error in snooze timeout handler:", error);
+        await startReminder(); // Attempt to restore normal operation
+      }
     }, 15 * 60 * 1000); // 15 minutes
-
-    // instead of settin and clearing timout, settimeut to show notifidation, then restore control to startreminder
 
     await vscode.window.showInformationMessage(
       "Reminder snoozed for 15 minutes"
@@ -150,13 +206,18 @@ async function handleSnooze(): Promise<void> {
   } catch (error) {
     console.error("Failed to snooze:", error);
     await startReminder(); // Restart the reminder if snooze fails
+  } finally {
+    state.transitionInProgress = false;
   }
 }
 
 async function showReminderNotification(): Promise<void> {
   try {
+    state.lastReminderTime = Date.now();
+    updateStatusBarTooltip();
+
     const action = await vscode.window.showInformationMessage(
-      "💧 Time for a water break! Stay hydrated for better productivity.",
+      " Time for a water break! Stay hydrated for better productivity.",
       "Dismiss",
       "Snooze 15min",
       "Mark as Done"
@@ -166,19 +227,24 @@ async function showReminderNotification(): Promise<void> {
       await handleSnooze();
     } else if (action === "Mark as Done") {
       await vscode.window.showInformationMessage(
-        "🎉 Great job staying hydrated!"
+        " Great job staying hydrated!"
       );
     }
   } catch (error) {
     console.error("Failed to show notification:", error);
+    // Don't rethrow - we want to keep the reminder running even if notification fails
   }
 }
 
 export function deactivate(context: vscode.ExtensionContext) {
-  // Save state for next session
-  context.globalState.update("waterBuddy.wasActive", state.isActive);
+  try {
+    // Save state for next session
+    context.globalState.update("waterBuddy.wasActive", state.isActive);
 
-  // Clean up
-  stopReminder();
-  state.statusBarItem.dispose();
+    // Clean up
+    stopReminder();
+    state.statusBarItem.dispose();
+  } catch (error) {
+    console.error("Error during deactivation:", error);
+  }
 }
